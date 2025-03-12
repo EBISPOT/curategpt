@@ -92,6 +92,8 @@ class OntologyWrapper(BaseWrapper):
         # as may be used in references
         labels = {e: lbl for e, lbl in adapter.labels(entities, allow_none=False)}
         logger.info(f"Found {len(labels)} labels")
+        aliases = {e: adapter.entity_aliases(e) for e in entities}
+        logger.info(f"Found {len(aliases)} sets of aliases")
         definitions = {}
         if self.fetch_definitions:
             for chunked_entities in chunk(selected_ids, 100):
@@ -120,6 +122,7 @@ class OntologyWrapper(BaseWrapper):
             obj = OntologyClass(
                 id=shorthand,
                 label=labels[id],
+				aliases=aliases[id],
                 original_id=id,
             )
             for pred, tgt in relationships.get(id, []):

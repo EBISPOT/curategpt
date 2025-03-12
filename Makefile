@@ -16,7 +16,7 @@ index_all_ont: $(patsubst %,ont-%,$(ONTS))
 index_all_issues: $(patsubst %,load-github-%,$(ONTS))
 
 ont-%:
-	$(CURATE) ontology index --index-fields label,definition,relationships -p $(DB_PATH) -c ont_$* -m openai: sqlite:obo:$*
+	$(CURATE) ontology index --index-fields label,definition,relationships,aliases -p $(DB_PATH) -c ont_$* -m openai: sqlite:obo:$*
 
 ## -- Web App --
 
